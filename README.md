@@ -8,9 +8,11 @@ The data was extracted from the French government's official [data.gouv.fr](http
 
 ## Setup
 
+#### -- Open the terminal for your coding environment
+
 #### -- Install streamlit
 - (`pip install streamlit`)
-#### -- Optional : Validate the installation by running the Hello app
+-- Optional : Validate the installation by running the Hello app
 - (`streamlit hello`)
 #### -- Access the folder storing the source code of the app
 - (`cd [enter path here]`)
