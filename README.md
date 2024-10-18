@@ -25,7 +25,7 @@ Optional : Validate the installation by running the Hello app
 #### -- Access the folder storing the source code of the app
 - (`cd [PATH]`)
 #### -- Run the Hello.py file using streamlit
-- (`streamlit run Hello.py`)
+- (`streamlit run Home.py`)
 #### -- Following a short loading period, the Streamlit app should open on your browser
 
 ## Warnings (to read before usage) :
