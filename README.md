@@ -8,7 +8,8 @@ Given the size of the data and the many details and information hidden inside th
 
 ## Data
 
-The data was extracted from the French government's official [data.gouv.fr](https://www.data.gouv.fr) website and can be found [right here](https://www.data.gouv.fr/fr/datasets/classement-thematique-des-sujets-de-journaux-televises-janvier-2005-septembre-2020).
+The data was extracted from the French government's official [data.gouv.fr](https://www.data.gouv.fr) website and can be found [right here](https://www.data.gouv.fr/fr/datasets/classement-thematique-des-sujets-de-journaux-televises-janvier-2005-septembre-2020).  
+
 The samples are categorized by two features : the thematic, which can take 14 values, and the channel, which can take 6. The analysis we will provide in this dashboard will focus on those two features,
 investigating their tendencies and variations over the timespan, both separately and jointly.
 
