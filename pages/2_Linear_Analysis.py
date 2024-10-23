@@ -10,7 +10,7 @@ from bokeh.plotting import figure
 
 #%% Extraction of the data
 
-data = pd.read_csv(r"C:\Users\papel\DATA\App\data\barometre_2005_2020.csv", delimiter=";", header=0, encoding='latin-1')
+data = pd.read_csv(r"data/barometre_2005_2020.csv", delimiter=";", header=0, encoding='latin-1')
 
 #%% Extraction of the "MOIS" data of object type, conversion to datetime, extraction of the month and year number. 
 
