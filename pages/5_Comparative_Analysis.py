@@ -47,7 +47,7 @@ if "show_total" not in st.session_state:
     st.session_state.show_total = False
     
 with st.sidebar: #Set show/hide buttons for every channel
-    st.title('🏂 Compared Analysis Dashboard')
+    st.title('Compared Analysis Dashboard')
     
     button_show_TF1 = "Hide TF1" if st.session_state.show_TF1 else "Show TF1"
     if st.button(button_show_TF1, key="show_TF1_button"):
@@ -177,6 +177,8 @@ plt.legend()
 plt.show()
 st.pyplot(plt)
 
+#Plot compared evolution of TV Coverage for selected year
+
 st.markdown(f"### Let's zoom in on year {selected_year}...")
 
 plt.figure(figsize=(10,6))
@@ -204,7 +206,7 @@ st.pyplot(plt)
 
 #Plot compared contribution to total coverage per theme
 
-st.markdown(f"### Total Repartition of Coverage per Theme, and Contribution to Total Coverage, per Channel, in {selected_year}")
+st.markdown(f"### Total Added Coverage per Theme, and Contribution to Total Coverage, per Channel, in {selected_year}")
 
 bar_width = 0.5
 plt.figure(figsize=(10,6))

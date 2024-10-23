@@ -61,7 +61,7 @@ total_coverage_true = total_coverage[channels].sum()
 
 data_theme_year = data[(data['THEMATIQUES'] == selected_theme) & (data['year_number'] == selected_year)]
 monthly_totals_theme = data_theme_year.groupby('month_number')['Totaux'].sum().reset_index()
-    
+
 st.markdown(f"## Evolution of Total TV Coverage for '{selected_theme}', from 2005 to 2020.")
 
 plt.figure(figsize=(10,6))
@@ -76,22 +76,34 @@ plt.title(f'Evolution of total TV Coverage for "{selected_theme}", from 2005 to 
 plt.show()
 st.pyplot(plt)
          
-st.markdown(f"### Let's zoom in on year {selected_year} for '{selected_theme}'...")
+col1, col2 = st.columns([100, 1])
 
-plt.figure(figsize=(10,6))
-plt.plot(monthly_totals_theme['month_number'], monthly_totals_theme['Totaux'], marker='o', label = 'Total coverage per month')
-if st.session_state.show_mean:
-    plt.plot(monthly_mean_theme['month_number'], monthly_mean_theme['Totaux'], alpha = 0.4, color = 'green', label = 'Mean evolution per month')
-plt.xlabel('Month')
-plt.ylabel('Coverage')
-plt.grid(True)
-plt.xticks(ticks=month_numbers, labels=month_labels)
-plt.legend()
-plt.title(f'Evolution of Total TV Coverage for "{selected_theme}", for 2005, compared to the mean', fontsize=14)
-st.pyplot(plt)
+with col1:
+    
+    st.markdown(f"### Let's zoom in on year {selected_year} for '{selected_theme}'...")
 
-st.markdown(f"### Repartition of news coverage for '{selected_theme}' in {selected_year}")
+    plt.figure(figsize=(10,6))
+    plt.plot(monthly_totals_theme['month_number'], monthly_totals_theme['Totaux'], marker='o', label = 'Total coverage per month')
+    if st.session_state.show_mean:
+        plt.plot(monthly_mean_theme['month_number'], monthly_mean_theme['Totaux'], alpha = 0.4, color = 'green', label = 'Mean evolution per month')
+    plt.xlabel('Month')
+    plt.ylabel('Coverage')
+    plt.grid(True)
+    plt.xticks(ticks=month_numbers, labels=month_labels)
+    plt.legend()
+    plt.title(f'Evolution of Total TV Coverage for "{selected_theme}", for 2005, compared to the mean', fontsize=14)
+    st.pyplot(plt)
+    
+    st.markdown(f"### Repartition of news coverage for '{selected_theme}' in {selected_year}")
+    
+with col2:
+    
+    monthly_totals_theme_styled = monthly_totals_theme.style \
+                    .background_gradient(cmap='coolwarm') \
+                    .set_properties(**{'text-align': 'center'}) \
 
+    st.markdown(monthly_totals_theme_styled.to_html(), unsafe_allow_html=True)
+    
 plt.figure(figsize=(10,6))
 if st.session_state.show_mean:
     plt.bar(total_coverage_true.index, total_coverage_true.values, alpha = 0.4, color = 'green', label = 'Total coverage from 2005 to 2020')
@@ -101,3 +113,5 @@ plt.ylabel(f'Coverage for {selected_year}')
 plt.xticks(rotation=45)
 plt.legend()
 st.pyplot(plt)
+    
+

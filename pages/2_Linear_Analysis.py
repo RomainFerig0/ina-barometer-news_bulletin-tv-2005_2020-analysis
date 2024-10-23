@@ -329,8 +329,11 @@ if st.session_state.show_repart_themes:
     plt.show()
     st.pyplot(plt)
     st.write("""A surprising detail of this graph is the comparatively small proportion of sport-based
-             coverages on Canal +, compared to total coverages as well as other topics on the channel :  
-             
+             coverages on Canal +, compared to total coverages as well as other topics on the channel.
+             This can be imputed to the fact Canal+ is a channel focused on **broadcasting** sportive
+             events, not reporting on them directly. Although programs like the Canal Football
+             Club still exist and contribute to the sports news coverage, they are still
+             a small population on a channel that already has a limited amount of news bulletins.
              """)
     
     st.markdown("### Repartition of coverage per theme, and contribution to total coverage, on Arte")
@@ -368,10 +371,12 @@ if st.session_state.show_repart_themes:
     plt.xticks(rotation=45)
     plt.title('Repartition of coverage per theme, and contribution to total coverage, on M6')
     plt.show()
-    
     st.pyplot(plt)
+    st.write("""As with other generalist channels like TF1, France 2 and France 3, M6 presents
+             a distribution following the general trend.
+             """)
     
-    st.markdown("### Compared repartition of coverage per theme, and contribution to total coverage, for all channels")
+    st.markdown("### Added repartition of coverage per theme, and contribution to total coverage, for all channels")
 
     bar_width = 0.5
     
@@ -388,12 +393,14 @@ if st.session_state.show_repart_themes:
     plt.xticks(rotation=45)
     plt.legend()
     plt.show()
-    plt.title('Compared repartition of coverage per theme, for all channels, from 2005 to 2020')
+    plt.title('Added repartition of coverage per theme, for all channels, from 2005 to 2020')
     st.pyplot(plt)
 
     st.markdown(
     """
     ### Conclusion
+    
+    As we have seen earlier, and as can be highlighted by the added graph, 
              
     """
     )    

@@ -34,7 +34,7 @@ if "show_mean" not in st.session_state:
 
 
 with st.sidebar:
-    st.title('🏂 Channel Data Dashboard')
+    st.title('Channel Data Dashboard')
     
     selected_channel = st.selectbox('Select a TV channel', channel_list)
     
@@ -58,50 +58,68 @@ theme_coverage_total = data_channel_theme.groupby('THEMATIQUES')[selected_channe
 
 data_channel = data[[selected_channel, 'year_number']]
 yearly_totals_channel = data_channel.groupby('year_number')[selected_channel].sum().reset_index()
-data_channel_m = data[(data[f'{selected_channel}']) & (data['year_number'] == selected_year)]
+data_channel_m = data[(data[selected_channel] == data[selected_channel]) & (data['year_number'] == selected_year)]
 monthly_totals_channel = data_channel_m.groupby('month_number')['Totaux'].sum().reset_index()
 
 
-st.markdown(f"### Total TV Coverage per Year for {selected_channel}, from 2005 to 2020")
+col1, col2 = st.columns([100, 1])
 
-plt.figure(figsize=(10,6))
-if st.session_state.show_mean:
-    plt.plot(yearly_totals['year_number'], yearly_totals['Totaux'], color='green', alpha = 0.4, label = 'Total Coverage')
+with col1:
+    
+    st.markdown(f"### Total TV Coverage per Year for {selected_channel}, from 2005 to 2020")
 
-plt.plot(yearly_totals_channel['year_number'], yearly_totals_channel[selected_channel], marker='o', label = 'Coverage by TF1')
-plt.xlabel('Year')
-plt.ylabel('Coverage')
-plt.legend()
-plt.title(f"Total TV Coverage per Year for {selected_channel}, from 2005 to 2020")
-plt.grid(True)
-plt.show()
-st.pyplot(plt)
+    plt.figure(figsize=(10,6))
+    if st.session_state.show_mean:
+        plt.plot(yearly_totals['year_number'], yearly_totals['Totaux'], color='green', alpha = 0.4, label = 'Total Coverage')
 
-st.markdown(f"### Let's zoom in on year {selected_year} for {selected_channel}...")
+    plt.plot(yearly_totals_channel['year_number'], yearly_totals_channel[selected_channel], marker='o', label = 'Coverage by TF1')
+    plt.xlabel('Year')
+    plt.ylabel('Coverage')
+    plt.legend()
+    plt.title(f"Total TV Coverage per Year for {selected_channel}, from 2005 to 2020")
+    plt.grid(True)
+    plt.show()
+    st.pyplot(plt)
 
-plt.figure(figsize=(10,6))
-plt.plot(monthly_totals_channel['month_number'], monthly_totals_channel['Totaux'], marker='o', label = f'Total coverage per month on {selected_channel}')
-if st.session_state.show_mean:
-    plt.plot(monthly_totals['month_number'], monthly_totals['Totaux'], alpha = 0.4, color = 'green', label = 'Total evolution per month')
-plt.xlabel('Month')
-plt.ylabel('Coverage')
-plt.grid(True)
-plt.xticks(ticks=month_numbers, labels=month_labels)
-plt.legend()
-plt.title(f'Evolution of Total TV Coverage on {selected_channel}, for {selected_year}', fontsize=14)
-plt.show()
-st.pyplot(plt)
+    st.markdown(f"### Let's zoom in on year {selected_year} for {selected_channel}...")
 
-st.markdown(f"### Total Coverage Repartition & Contribution per Theme, on {selected_channel}, for {selected_year}")
+    plt.figure(figsize=(10,6))
+    plt.plot(monthly_totals_channel['month_number'], monthly_totals_channel['Totaux'], marker='o', label = f'Total coverage per month on {selected_channel}')
+    if st.session_state.show_mean:
+        plt.plot(monthly_totals['month_number'], monthly_totals['Totaux'], alpha = 0.4, color = 'green', label = 'Total evolution per month')
+    plt.xlabel('Month')
+    plt.ylabel('Coverage')
+    plt.grid(True)
+    plt.xticks(ticks=month_numbers, labels=month_labels)
+    plt.legend()
+    plt.title(f'Evolution of Total TV Coverage on {selected_channel}, for {selected_year}', fontsize=14)
+    plt.show()
+    st.pyplot(plt)
+            
+    st.markdown(f"### Total Coverage Repartition & Contribution per Theme, on {selected_channel}, for {selected_year}")
 
-plt.figure(figsize=(10,6))
-if st.session_state.show_mean:
-    plt.bar(theme_coverage_total['THEMATIQUES'], theme_coverage_total[selected_channel], color='green', alpha = 0.4, label = 'Total Coverage from 2005 to 2020')
-plt.bar(theme_coverage['THEMATIQUES'], theme_coverage[selected_channel], label = f'Coverage by {selected_channel}')
-plt.xlabel('Theme')
-plt.ylabel('Coverage')
-plt.legend()
-plt.title(f"Total Coverage Repartition & Contribution per Theme, on {selected_channel}, for {selected_year}")
-plt.xticks(rotation=45)
-plt.show()
-st.pyplot(plt)
+    plt.figure(figsize=(10,6))
+    if st.session_state.show_mean:
+        plt.bar(theme_coverage_total['THEMATIQUES'], theme_coverage_total[selected_channel], color='green', alpha = 0.4, label = 'Total Coverage from 2005 to 2020')
+    plt.bar(theme_coverage['THEMATIQUES'], theme_coverage[selected_channel], label = f'Coverage by {selected_channel}')
+    plt.xlabel('Theme')
+    plt.ylabel('Coverage')
+    plt.legend()
+    plt.title(f"Total Coverage Repartition & Contribution per Theme, on {selected_channel}, for {selected_year}")
+    plt.xticks(rotation=45)
+    plt.show()
+    st.pyplot(plt)
+
+with col2:
+
+    monthly_totals_channel_styled = monthly_totals_channel.style \
+                    .background_gradient(cmap='coolwarm') \
+                    .set_properties(**{'text-align': 'center'}) \
+
+    st.markdown(monthly_totals_channel_styled.to_html(), unsafe_allow_html=True)
+
+    theme_coverage_styled = theme_coverage.style \
+                    .background_gradient(cmap='coolwarm') \
+                    .set_properties(**{'text-align': 'center'}) \
+    
+    st.markdown(theme_coverage_styled.to_html(), unsafe_allow_html=True)
